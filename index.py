@@ -1,7 +1,11 @@
 #Importar as bibliotecas
+from ast import Pass
+from logging import root
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+
+from telegram import User
 import DataBaser
 
 #Cria Nossa janela
@@ -38,8 +42,24 @@ Passlabel.place(x=30, y=115)
 PassEntry = ttk.Entry(RightFrame, width=30, show="•")
 PassEntry.place(x=170, y=125)
 
+def LoginAcess():
+    UserLogin = UserEntry.get()
+    PassLogin = PassEntry.get()
+    DataBaser.cursor.execute("""
+    SELECT * FROM Users
+    WHERE (User = ? and Password = ?)                         
+    """, (UserLogin, PassLogin))
+    print("Selecionou")
+    VerifyLogin = DataBaser.cursor.fetchone()
+    try:
+        if (UserLogin in VerifyLogin and PassLogin in VerifyLogin):
+                messagebox.showinfo(title="Aviso de Login", message="Acesso Confimado, bem vindo!")
+    except:
+        messagebox.showerror(title="Aviso de Login", message="Acesso Negado, email ou senha incorretos!")
+        
+
 #Botoes de Login
-LoginButton = ttk.Button(RightFrame, text="Login", width=-29)
+LoginButton = ttk.Button(RightFrame, text="Login", width=-29, command=LoginAcess)
 LoginButton.place(x=110, y=185)
 
 #Função do botão register do Login
