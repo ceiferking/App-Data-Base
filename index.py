@@ -42,6 +42,7 @@ Passlabel.place(x=30, y=115)
 PassEntry = ttk.Entry(RightFrame, width=30, show="•")
 PassEntry.place(x=170, y=125)
 
+#Checa os campos de login 'username' e 'Password' com os dados cadastrados no banco de dados.
 def LoginAcess():
     UserLogin = UserEntry.get()
     PassLogin = PassEntry.get()
@@ -51,6 +52,8 @@ def LoginAcess():
     """, (UserLogin, PassLogin))
     print("Selecionou")
     VerifyLogin = DataBaser.cursor.fetchone()
+    #Apresenta menssagem de login confirmado caso corresponda aos dados cadastrados no database
+    #Apresenta menssagem de erro ao fazer login caso não corresponda aos dados cadastrados no database.
     try:
         if (UserLogin in VerifyLogin and PassLogin in VerifyLogin):
                 messagebox.showinfo(title="Aviso de Login", message="Acesso Confimado, bem vindo!")
