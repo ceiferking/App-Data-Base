@@ -8,7 +8,7 @@ from tkinter import ttk
 from telegram import User
 import DataBaser
 
-#Cria Nossa janela
+#Cria a janela do app.
 jan = Tk()
 jan.title("OP Systems - Acess Panel")
 jan.geometry("600x300")
@@ -42,7 +42,7 @@ Passlabel.place(x=30, y=115)
 PassEntry = ttk.Entry(RightFrame, width=30, show="•")
 PassEntry.place(x=170, y=125)
 
-#Checa os campos de login 'username' e 'Password' com os dados cadastrados no banco de dados.
+#checa os campos de login 'username' e 'Password' com os dados cadastrados no banco de dados.
 def LoginAcess():
     UserLogin = UserEntry.get()
     PassLogin = PassEntry.get()
@@ -100,16 +100,17 @@ def Register():
     PassRegisEntry = ttk.Entry(RightFrame, width=30, show="•")
     PassRegisEntry.place(x=170, y=125)
     
-    #Função boçao register da tela de registro
+    #Função do botão register da tela de registro
     def RegisterDataBase():
         #Le os dados e armazena no banco de dados.
         Name = NameEntry.get()
         Email = EmailEntry.get()
         User = UserRegisEntry.get()
         Pass = PassRegisEntry.get()
-        
+        #Apresenta menssagems em caso de erros do preenchimento
         if(Name == "" or Email == "" or User == "" or Pass == ""):
             messagebox.showerror(title="Register Error", message="Não deixe campo vazio. Preencha Todos os Campos")
+        #Armazena as informaçoes do dos campos de cadastro em UserData.db
         else:
             DataBaser.cursor.execute("""
             INSERT INTO Users(Name, Email, User, Password) VALUES(?, ?, ?, ?)                         
